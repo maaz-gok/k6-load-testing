@@ -1,6 +1,9 @@
 import http from "k6/http";
 import { check, sleep } from "k6";
 import { options } from "../Scenarios.js";
+import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js"; 
+
+
 export { options };
 
 const BASE_URL = "https://api.dev.jawhar.ai";
@@ -23,4 +26,9 @@ export default function login() {
   console.log(`Login Response Status: ${loginRes.status}`);
 
   sleep(1);
+}
+export function handleSummary(data) {
+  return {
+    "summary.html": htmlReport(data),
+  };
 }

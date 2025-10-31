@@ -3,6 +3,8 @@ import { check, sleep } from "k6";
 import { options } from "../Scenarios.js";
 import { generateRandomEmail } from "../utils/RandomEmail.js";
 import { ENDPOINTS } from "./config/endpoints.js";
+import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js"; 
+
 export { options };
 
 const otp = "123456";
@@ -71,4 +73,9 @@ export default function signup() {
   );
   check(resetRes, { "Reset Password status is 201": (r) => r.status === 201 });
   sleep(1);
+}
+export function handleSummary(data) {
+  return {
+    "summary.html": htmlReport(data),
+  };
 }
