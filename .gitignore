@@ -1,0 +1,17 @@
+# Ignore environment files
+.env
+.env.*
+*.env
+
+# Logs and reports
+*.log
+*.txt
+*.csv
+*.json
+*.html
+results/
+reports/
+
+# Node modules or temp files
+node_modules/
+.DS_Store
