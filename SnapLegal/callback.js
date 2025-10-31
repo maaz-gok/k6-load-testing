@@ -1,10 +1,11 @@
 import http from "k6/http";
 import { check } from "k6";
 import { options } from "../Scenarios.js";
-import { endpoints } from "../config/endpoints.js";
+import { endpoints } from "./config/endpoints.js";
+
 export { options };
-const token =
-  "<HIDDEN_FOR_PRIVACY>";
+
+const token = __ENV.GOOGLE_TOKEN;
 
 export default function () {
   const payload = JSON.stringify({ token });
@@ -17,6 +18,6 @@ export default function () {
     "Callback status is 201": (r) => r.status === 201,
   });
 
-  console.log(`Response Status: ${res.status}`);
-  console.log(`Response Body: ${res.body}`);
+ console.log(`Response Status: ${res.status}`);
+ 
 }
