@@ -1,203 +1,190 @@
-
-```markdown
+markdown
 # K6 Performance Tests
 
-A collection of k6 performance test scripts for various applications and services.
+A comprehensive collection of k6 load testing scripts for various applications and services.
 
 ## 📁 Project Structure
-
-```
 k6-tests/
-├── vscode/                 # VS Code extension tests
-├── ExampleRun/             # Example test runs and templates
-├── Human-Nature/           # Human Nature application tests
-│   ├── CreateQuestions/
-│   ├── create-question.js
-│   ├── chat.js
-│   ├── login.js
-│   └── submit-response.js
-├── Jawhar.ai/              # Jawhar AI platform tests
-│   ├── config/
-│   ├── login.js
-│   └── signUpOTPLogin.js
-├── Results/                # Test results and outputs
-│   ├── results.json
-│   └── results1.json
-├── SnapLegal/              # SnapLegal application tests
-│   ├── config/
-│   ├── Templates/
-│   ├── data/
-│   ├── login.js
-│   ├── SignUpLogin.js
-│   └── inquiries.js
-├── SocialSmart/            # SocialSmart AI tests
-│   └── socialsmartAI.js
-└── utils/                  # Utility functions
-    └── RandomEmail.js
-```
+├── vscode/ # VS Code extension tests
+├── ExampleRun/ # Example test runs and templates
+├── Human-Nature/ # Human Nature application tests
+│ ├── CreateQuestions/
+│ ├── create-question.js
+│ ├── data.js
+│ ├── chat.js
+│ ├── get-notifications.js
+│ ├── guest-signup.js
+│ ├── login.js
+│ ├── results3.json
+│ └── submit-response.js
+├── Jawhar.ai/ # Jawhar AI platform tests
+│ ├── config/
+│ │ └── endpoints.js
+│ ├── login.js
+│ ├── signUpOTPLogin.js
+│ └── summary.html
+├── Results/ # Test results and outputs
+│ ├── results.json
+│ └── results1.json
+├── SnapLegal/ # SnapLegal application tests
+│ ├── config/
+│ ├── Templates/
+│ ├── data/
+│ ├── failure-log.txt
+│ ├── templates.js
+│ ├── .env
+│ ├── callback.js
+│ ├── inquiries.js
+│ ├── invite-members.js
+│ ├── login.js
+│ ├── plans.js
+│ ├── select-plans.js
+│ ├── SignUpLogin.js
+│ └── summary.html
+├── SocialSmart/ # SocialSmart AI tests
+│ └── socialsmartAI.js
+├── utils/ # Utility functions
+│ └── RandomEmail.js
+├── .gitignore
+├── README.md
+├── Scenarios.js
+└── users.js
 
-## 🚀 Getting Started
+text
+
+## 🚀 Quick Start
 
 ### Prerequisites
 
-- [k6](https://k6.io/docs/getting-started/installation/) installed on your system
-- Node.js (for some utility scripts)
+- [k6](https://k6.io/docs/getting-started/installation/) installed
 
 ### Installation
 
-1. Clone this repository
-2. Install k6:
-   ```bash
-   # macOS
-   brew install k6
-   
-   # Windows
-   winget install k6
-   
-   # Linux
-   sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
-   echo "deb https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
-   sudo apt-get update
-   sudo apt-get install k6
-   ```
-
-## 🧪 Running Tests
-
-### Basic Test Execution
-
 ```bash
-# Run a specific test
-k6 run Human-Nature/login.js
+# macOS
+brew install k6
 
-# Run with different number of virtual users
+# Windows
+winget install k6
+
+# Ubuntu/Debian
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
+echo "deb https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+sudo apt-get update
+sudo apt-get install k6
+Running Tests
+bash
+# Run specific test
+k6 run SnapLegal/login.js
+
+# Run with custom VUs and duration
 k6 run --vus 10 --duration 30s Human-Nature/login.js
 
-# Run with stages (ramp up/down)
-k6 run SocialSmart/socialsmartAI.js
-```
+# Run with stages configuration
+k6 run Jawhar.ai/signUpOTPLogin.js
+📊 Test Categories
+Authentication & User Management
+Login/Logout flows (login.js)
 
-### Test Scenarios
+User registration (SignUpLogin.js, guest-signup.js)
 
-Each test scenario is configured in `Scenarios.js` and can be customized per application.
+OTP verification (signUpOTPLogin.js)
 
-## 📊 Test Results
+Password reset flows
 
-Test results are generated in multiple formats:
+API Endpoint Testing
+CRUD operations (inquiries.js, create-question.js)
 
-- **HTML Reports**: `summary.html` files in each directory
-- **JSON Results**: Detailed results in `Results/` directory
-- **Console Output**: Real-time metrics during test execution
+Data submission (submit-response.js)
 
-### Viewing Reports
+Notification systems (get-notifications.js)
 
-After running a test, open the generated `summary.html` file in your browser:
+Chat functionality (chat.js)
 
-```bash
-# Example: After running Jawhar.ai tests
-open Jawhar.ai/summary.html
-```
+Business Logic
+Plan selection (plans.js, select-plans.js)
 
-## 🔧 Configuration
+Member invitations (invite-members.js)
 
-### Environment Variables
+AI interactions (socialsmartAI.js)
 
-Some tests require environment variables. Copy and modify the `.env` file in the respective directory:
+Payment callbacks (callback.js)
 
-```bash
-cp SnapLegal/.env.example SnapLegal/.env
-```
+⚙️ Configuration
+Scenario Configuration
+Modify Scenarios.js to adjust test parameters:
 
-### Customizing Tests
-
-Modify the test parameters in `Scenarios.js`:
-
-```javascript
+javascript
 export const options = {
   stages: [
-    { duration: '2m', target: 100 }, // ramp up to 100 users
-    { duration: '5m', target: 100 }, // stay at 100 users
-    { duration: '2m', target: 0 },   // ramp down to 0 users
+    { duration: '2m', target: 100 },
+    { duration: '5m', target: 100 },
+    { duration: '2m', target: 0 },
   ],
   thresholds: {
-    http_req_duration: ['p(95)<500'], // 95% of requests under 500ms
-    http_req_failed: ['rate<0.01'],   // less than 1% failures
+    http_req_duration: ['p(95)<500'],
+    http_req_failed: ['rate<0.01'],
   },
 };
-```
+Environment Setup
+Some tests require environment variables:
 
-## 📋 Available Tests
+bash
+cp SnapLegal/.env.example SnapLegal/.env
+# Edit .env with your configuration
+📈 Results & Reporting
+Generated Reports
+HTML Summary: summary.html in each test directory
 
-### Authentication Tests
-- **Login/Logout flows**
-- **User registration**
-- **Password reset**
-- **OTP verification**
+JSON Results: Detailed metrics in Results/ directory
 
-### API Endpoint Tests
-- **CRUD operations**
-- **Data submission**
-- **File uploads**
-- **WebSocket connections**
+Console Output: Real-time test execution metrics
 
-### Load Testing Scenarios
-- **Smoke tests** (1-5 VUs)
-- **Average load** (50-100 VUs) 
-- **Stress tests** (500+ VUs)
-- **Spike tests** (rapid scaling)
-
-## 🛠 Utilities
-
-### Random Email Generator
-Used for creating unique test users:
-
-```javascript
+Viewing Reports
+bash
+# Open HTML report in browser
+open SnapLegal/summary.html
+🛠 Utilities
+Random Email Generator
+javascript
 import { generateRandomEmail } from '../utils/RandomEmail.js';
-
 const userEmail = generateRandomEmail();
-```
+🎯 Performance Thresholds
+All tests include performance thresholds:
 
-## 📈 Monitoring
+Response Time: p95 < 500ms
 
-### Key Metrics Tracked
-- **Response times** (p95, p99)
-- **Request rate**
-- **Error rate**
-- **Throughput**
-- **Virtual users**
+Error Rate: < 1%
 
-### Thresholds
-Tests include performance thresholds that will fail the test if not met:
-- HTTP request duration < 500ms (p95)
-- Error rate < 1%
-- Specific business logic checks
+Business Logic: Custom checks per test case
 
-## 🤝 Contributing
+📝 Test Execution Levels
+Level	Virtual Users	Purpose
+Smoke	1-5 VUs	Basic functionality verification
+Load	50-100 VUs	Average expected traffic
+Stress	500+ VUs	System breaking point analysis
+Spike	Rapid scaling	Traffic surge handling
+🔧 Customization
+Adding New Tests
+Follow existing file structure
 
-1. Follow the existing file structure
-2. Add appropriate thresholds for new tests
-3. Include HTML report generation
-4. Update this README with new test information
+Import shared utilities from utils/
 
-## 📝 Notes
+Include HTML report generation
 
-- Tests are organized by application/service
-- Each directory contains independent test suites
-- Shared utilities are in the `utils/` directory
-- Results are stored separately from test scripts
+Set appropriate performance thresholds
 
-## 🔗 Useful Links
+Modifying Existing Tests
+Update endpoints in config/endpoints.js
 
-- [k6 Documentation](https://k6.io/docs/)
-- [k6 JavaScript API](https://k6.io/docs/javascript-api/)
-- [k6 Results Output](https://k6.io/docs/results-output/)
-```
+Adjust test data in data.js
 
-This README provides:
-- Clear project structure overview
-- Setup instructions
-- Usage examples
-- Test categorization
-- Contribution guidelines
-- Links to documentation
+Modify scenarios in Scenarios.js
 
-You can place this `README.md` file in the root of your `k6-tests` directory.
+📚 Documentation
+k6 Official Documentation
+
+k6 JavaScript API
+
+k6 Results Output
+
