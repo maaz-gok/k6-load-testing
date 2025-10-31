@@ -1,8 +1,12 @@
 {
     "folder-color.pathColors": [
         {
-            "folderPath": "k6-tests/users.js/",
-            "color": "foldercolorizer.color_006699"
+            "folderPath": "vscode",
+            "color": "#FF6B6B"
+        },
+        {
+            "folderPath": "ExampleRun",
+            "color": "#4ECDC4"
         }
     ]
 }
