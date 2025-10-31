@@ -1,4 +1,3 @@
-Here's a comprehensive `README.md` for your k6-tests project:
 
 ```markdown
 # K6 Performance Tests
