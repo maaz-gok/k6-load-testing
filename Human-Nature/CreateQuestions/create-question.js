@@ -15,7 +15,7 @@ function randomItem(arr) {
 }
 
 export function setup() {
-  const userToken = login("maaz+85@geeksofkolachi.com", "Nmdp7788!");
+  const userToken = login("maaz+ios@geeksofkolachi.com", "Test123!");
 
   if (!userToken) {
     throw new Error("Tokens could not be retrieved!");
