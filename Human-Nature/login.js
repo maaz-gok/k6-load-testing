@@ -20,7 +20,7 @@ export default function login(email, password) {
   console.log(`Login Response Status: ${loginRes.status}`);
 
   check(loginRes, {
-    "Login status is 200": (r) => r.status === 201,
+    "Login status is 200": (r) => r.status === 200,
   });
 
   const body = loginRes.json();
