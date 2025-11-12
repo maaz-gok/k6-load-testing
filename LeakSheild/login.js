@@ -1,8 +1,8 @@
 import http from "k6/http";
 import { check } from "k6";
+import { endpoints } from "./config/endpoints.js";
 
-const BASE_URL = "https://api.aliengate.jp";
-const LoginURL = `${BASE_URL}/auth/login`;
+
 
 export default function login() {
   const LoginDetails = {
@@ -10,7 +10,7 @@ export default function login() {
     password: "Test123!",
   };
 
-  const loginRes = http.post(LoginURL, JSON.stringify(LoginDetails), {
+  const loginRes = http.post(endpoints.LOGIN, JSON.stringify(LoginDetails), {
     headers: { "Content-Type": "application/json" },
   });
 

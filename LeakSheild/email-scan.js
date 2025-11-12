@@ -2,9 +2,8 @@ import http from 'k6/http';
 import { check, sleep } from 'k6';
 import login from "./Login.js";
 import emailsScan from "./Emails/emails.js";
+import { endpoints } from "./config/endpoints.js";
 
-const BASE_URL = 'https://api.aliengate.jp';
-const BreachCheckBulkURL = `${BASE_URL}/email-accounts/scan`;
 
 export function setup() {
   const token = login();
@@ -29,7 +28,7 @@ export default function (data) {
       email: email, 
     };
 
-    const res = http.post(BreachCheckBulkURL, JSON.stringify(payload), params);
+    const res = http.post(endpoints.EMAIL_SCAN, JSON.stringify(payload), params);
 
     console.log(`Email ${i + 1}/${emailsScan.length} -> ${email} Status: ${res.status}`);
 

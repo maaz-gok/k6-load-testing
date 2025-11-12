@@ -1,10 +1,10 @@
 import http from "k6/http";
 import { check } from "k6";
 import login from "./Login.js";
+import { endpoints } from "./config/endpoints.js";
 
 
-const BASE_URL = "https://api.aliengate.jp";
-const BreachCheckBulkURL = `${BASE_URL}/breach/check`;
+
 
 // setup runs once
 export function setup() {
@@ -26,7 +26,7 @@ export default function (data) {
     email: "maaz+33@geeksofkolachi.com",
     includeUnverified: true,
   });
-  const res = http.post(BreachCheckBulkURL, payload, params);
+  const res = http.post(endpoints.BREACH_CHECK_SINGLE, payload, params);
 
   check(res, {
     "Breach Check Bulk - status is 201": (r) => r.status === 201,

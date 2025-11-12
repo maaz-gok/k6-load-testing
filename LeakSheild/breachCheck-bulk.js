@@ -2,9 +2,8 @@ import http from "k6/http";
 import { check } from "k6";
 import emails from "./Emails/emails.js";
 import login from "./Login.js";
+import { endpoints } from "./config/endpoints.js";
 
-const BASE_URL = "https://api.aliengate.jp";
-const BreachCheckBulkURL = `${BASE_URL}/breach/check-bulk`;
 
 export function setup() {
   const token = login();
@@ -28,7 +27,7 @@ export default function (data) {
     includeUnverified: true,
   });
 
-  const res = http.post(BreachCheckBulkURL, payload, params);
+  const res = http.post(endpoints.BREACH_CHECK_BULK, payload, params);
 
   console.log(`Breach Check Bulk Status: ${res.status} for ${emails.length} emails`);
 
