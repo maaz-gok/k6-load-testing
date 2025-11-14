@@ -31,6 +31,7 @@ export default function (data) {
     const res = http.post(endpoints.EMAIL_SCAN, JSON.stringify(payload), params);
 
     console.log(`Email ${i + 1}/${emailsScan.length} -> ${email} Status: ${res.status}`);
+    console.log(`Response Body: ${res.body}`);
 
     check(res, {
       "Breach Check request accepted": (r) => r.status === 200 || r.status === 201,

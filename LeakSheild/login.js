@@ -6,7 +6,7 @@ import { endpoints } from "./config/endpoints.js";
 
 export default function login() {
   const LoginDetails = {
-    email: "maaz+3@geeksofkolachi.com",
+    email: "maazimtiaz3456+1@gmail.com",
     password: "Test123!",
   };
 
