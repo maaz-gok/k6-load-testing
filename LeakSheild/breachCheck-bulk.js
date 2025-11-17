@@ -4,6 +4,9 @@ import emails from "./Emails/emails.js";
 import login from "./Login.js";
 import { endpoints } from "./config/endpoints.js";
 import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js";
+import { options } from "../Scenarios.js";
+export { options };
+
 
 export function setup() {
   const token = login();
