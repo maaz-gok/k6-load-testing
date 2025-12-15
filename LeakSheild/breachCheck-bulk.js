@@ -22,7 +22,7 @@ export default function (data) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-  };
+  }; 
 
   const payload = JSON.stringify({
     emails: emails,

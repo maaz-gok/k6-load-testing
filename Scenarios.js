@@ -81,3 +81,21 @@
 //     },
 //   },
 // };
+// export const options = {
+//   vus: 2,         // run with 2 virtual users
+//   iterations: 4,  // total cycles = 4 (2 cycles per VU)
+// };
+export const options = {
+  scenarios: {
+    lightTest: {
+      executor: "ramping-vus",
+      startVUs: 0,
+      stages: [
+        { duration: "30s", target: 10 },  
+        { duration: "1m", target: 10 },   
+        { duration: "15s", target: 0 },   
+      ],
+      gracefulRampDown: "5s",
+    },
+  },
+};

@@ -1,34 +1,34 @@
 export const templateIds = [
   // Business & Commercial
-  "68f901eab3f893618a82b5ee", // Affiliate / Referral Agreement
-  "68f901eab3f893618a82b5e8", // Consulting Agreement
-  "68f901eab3f893618a82b5e7", // Independent Contractor Agreement
-  "68f901eab3f893618a82b5ea", // Master Service Agreement (MSA) + SOW
-  "68f901eab3f893618a82b5e5", // Mutual NDA
-  "68f901eab3f893618a82b5ed", // Purchase Order / Supply Agreement
-  "68f901eab3f893618a82b5eb", // SaaS Subscription Agreement
-  "68f901eab3f893618a82b5ec", // Sales of Goods Agreement
-  "68f901eab3f893618a82b5e9", // Service Agreement (B2B)
-  "68f901eab3f893618a82b5e6", // Unilateral NDA
+  "6913f38204689e6e88fd9d4e", // Affiliate / Referral Agreement
+  "6913f38204689e6e88fd9d48", // Consulting Agreement
+  "6913f38204689e6e88fd9d47", // Independent Contractor Agreement
+  "6913f38204689e6e88fd9d4a", // Master Service Agreement (MSA) + SOW
+  "6913f38204689e6e88fd9d45", // Mutual NDA (Non-Disclosure Agreement)
+  "6913f38204689e6e88fd9d4d", // Purchase Order / Supply Agreement
+  "6913f38204689e6e88fd9d4b", // SaaS Subscription Agreement
+  "6913f38204689e6e88fd9d4c", // Sales of Goods Agreement
+  "6913f38204689e6e88fd9d49", // Service Agreement (B2B)
+  "6913f38204689e6e88fd9d46", // Unilateral NDA
 
   // Employment & HR
-  "68f901eab3f893618a82b5f4", // Confidentiality & Inventions Agreement
-  "68f901eab3f893618a82b5f0", // Employment Agreement (At-Will)
-  "68f901eab3f893618a82b5ef", // Employment Offer Letter
-  "68f901eab3f893618a82b5f1", // Freelancer / Gig Worker Agreement
-  "68f901eab3f893618a82b5f2", // IP Assignment Agreement (Employee/Contractor)
-  "68f901eab3f893618a82b5f3", // Non-Compete / Non-Solicitation Agreement
-  "68f901eab3f893618a82b5f5", // Termination / Separation Agreement
+  "6913f38204689e6e88fd9d54", // Confidentiality & Inventions Agreement
+  "6913f38204689e6e88fd9d50", // Employment Agreement (At-Will)
+  "6913f38204689e6e88fd9d4f", // Employment Offer Letter
+  "6913f38204689e6e88fd9d51", // Freelancer / Gig Worker Agreement
+  "6913f38204689e6e88fd9d52", // IP Assignment Agreement (Employee/Contractor)
+  "6913f38204689e6e88fd9d53", // Non-Compete / Non-Solicitation Agreement
+  "6913f38204689e6e88fd9d55", // Termination / Separation Agreement
 
   // Online Business & Compliance
-  "68f901eab3f893618a82b5fd", // Photo / Video Release Form
-  "68f901eab3f893618a82b5fc", // Privacy Policy (GDPR/CCPA friendly)
-  "68f901eab3f893618a82b5fb", // Website Terms of Service
+  "6913f38204689e6e88fd9d5d", // Photo / Video Release Form
+  "6913f38204689e6e88fd9d5c", // Privacy Policy (GDPR/CCPA friendly)
+  "6913f38204689e6e88fd9d5b", // Website Terms of Service
 
   // Real Estate & Operations
-  "68f901eab3f893618a82b5fa", // Equipment Rental Agreement
-  "68f901eab3f893618a82b5f8", // Lease Termination Letter
-  "68f901eab3f893618a82b5f7", // Month-to-Month Rental Addendum
-  "68f901eab3f893618a82b5f6", // Residential Lease Agreement
-  "68f901eab3f893618a82b5f9", // Room Rental Agreement
+  "6913f38204689e6e88fd9d5a", // Equipment Rental Agreement
+  "6913f38204689e6e88fd9d58", // Lease Termination Letter
+  "6913f38204689e6e88fd9d57", // Month-to-Month Rental Addendum
+  "6913f38204689e6e88fd9d56", // Residential Lease Agreement
+  "6913f38204689e6e88fd9d59", // Room Rental Agreement
 ];

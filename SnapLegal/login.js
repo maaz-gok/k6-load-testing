@@ -8,7 +8,7 @@ import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporte
 export { options };
 
 const userCredentials = {
-  email: "maaz+templates@geeksofkolachi.com",
+  email: "maaz+l2@geeksofkolachi.com",
   password: "Test123!",
 };
 

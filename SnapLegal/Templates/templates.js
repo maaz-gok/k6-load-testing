@@ -5,7 +5,7 @@ import login from "../login.js";
 import { payloads } from "./data/payloads.js";
 import { templateIds } from "./data/data.js";
 import { endpoints } from "../config/endpoints.js";
-import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js"; 
+import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js";
 
 export { options };
 
@@ -55,17 +55,26 @@ export default function (data) {
     [`${templateId} — responses submitted`]: (r) => r.status === 201,
   });
 
-  const responseId = JSON.parse(submitRes.body)?.data?._id;
-  if (!responseId) {
-    console.error(`❌ Missing responseId for template ${templateId}`);
-    return;
-  }
   const parsedSubmitBody = JSON.parse(submitRes.body);
 
+  // 💡 ROBUST ID EXTRACTION: Check for both responseId and rootResponseId in the submission body.
+  const submissionData = parsedSubmitBody?.data;
+  const docId = submissionData?.rootResponseId || submissionData?._id || submissionData?.responseId; 
+
+  if (!docId) {
+    console.error(`❌ Missing document ID for template ${templateId}. Body: ${submitRes.body}`);
+    return;
+  }
+  
   // 3️⃣ Generate Document
+  // Use the original key 'rootResponseId' as confirmed by the user, and ensure ID is a string.
+  const genDocPayload = {
+    responseId: String(docId),
+  };
+
   const genDocRes = http.post(
     endpoints.GENERATE_DOC,
-    JSON.stringify({ responseId }),
+    JSON.stringify(genDocPayload),
     { headers }
   );
 
@@ -77,10 +86,10 @@ export default function (data) {
     console.error(`\n❌ ${templateId} — Document generation failed`);
     console.error(`↳ Status: ${genDocRes.status}`);
     console.error(`↳ Duration: ${genDocRes.timings.duration} ms`);
-    console.error(`↳ Template Response ID: ${parsedSubmitBody.data._id}`);
-    console.error(`↳ GenDoc Request ID: ${responseId}`);
+    console.error(`↳ Template Response ID: ${submissionData?._id}`);
+    console.error(`↳ GenDoc Request ID: ${docId}`);
     console.error(`↳ Body: ${genDocRes.body}`);
-    console.error(`↳ Request payload: ${JSON.stringify({ responseId })}`);
+    console.error(`↳ Request payload: ${JSON.stringify(genDocPayload)}`);
   }
 
   console.log(`Template ${templateId} → Gen Doc Status: ${genDocRes.status}`);
@@ -88,6 +97,6 @@ export default function (data) {
 }
 export function handleSummary(data) {
   return {
-    ".reports/summary.html": htmlReport(data),
+    ".summary.html": htmlReport(data),
   };
 }
