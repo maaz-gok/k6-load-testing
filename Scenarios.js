@@ -87,13 +87,13 @@
 // };
 export const options = {
   scenarios: {
-    lightTest: {
+    signup_load_test: {
       executor: "ramping-vus",
       startVUs: 0,
       stages: [
-        { duration: "30s", target: 10 },  
-        { duration: "1m", target: 10 },   
-        { duration: "15s", target: 0 },   
+        { duration: "30s", target: 10 },   // ramp up
+        { duration: "1m", target: 10 },    // steady load
+        { duration: "15s", target: 0 },    // ramp down
       ],
       gracefulRampDown: "5s",
     },
