@@ -85,17 +85,75 @@
 //   vus: 2,         // run with 2 virtual users
 //   iterations: 4,  // total cycles = 4 (2 cycles per VU)
 // };
+// export const options = {
+//   scenarios: {
+//     signup_load_test: {
+//       executor: "ramping-vus",
+//       startVUs: 0,
+//       stages: [
+//         { duration: "30s", target: 10 },   // ramp up
+//         { duration: "1m", target: 10 },    // steady load
+//         { duration: "15s", target: 0 },    // ramp down
+//       ],
+//       gracefulRampDown: "5s",
+//     },
+//   },
+// };
+// export const options = {
+//   scenarios: {
+//     parents: {
+//       executor: 'constant-vus',
+//       vus: 5,             // 5 Parents
+//       duration: '1m',     
+//       exec: 'parentFlow', 
+//       startTime: '0s',    
+//     },
+//     sitters: {
+//       executor: 'constant-vus',
+//       vus: 5,             // 5 Sitters
+//       duration: '50s',    
+//       exec: 'sitterFlow', 
+//       startTime: '10s',   
+//     },
+//   },
+//   thresholds: {
+//     'http_req_duration': ['p(95)<2000'], 
+//     'errors': ['count<10'],
+//   },
+// }
 export const options = {
   scenarios: {
-    signup_load_test: {
-      executor: "ramping-vus",
+    // 1. PARENTS: Ramp up to 50 concurrent users
+    parents: {
+      executor: 'ramping-vus',
       startVUs: 0,
       stages: [
-        { duration: "30s", target: 10 },   // ramp up
-        { duration: "1m", target: 10 },    // steady load
-        { duration: "15s", target: 0 },    // ramp down
+        { duration: '30s', target: 5 },  // Warm up
+        { duration: '1m', target: 20 },  // Ramp up
+        { duration: '2m', target: 50 },  // 🔴 STRESS PEAK
+        { duration: '30s', target: 0 },  // Cool down
       ],
-      gracefulRampDown: "5s",
+      exec: 'parentFlow',
+      startTime: '0s', 
+    },
+    // 2. SITTERS: Ramp up to 50 concurrent users (Wait 10s to start)
+    sitters: {
+      executor: 'ramping-vus',
+      startVUs: 0,
+      stages: [
+        { duration: '30s', target: 5 },
+        { duration: '1m', target: 20 },
+        { duration: '2m', target: 50 },  // 🔴 STRESS PEAK
+        { duration: '30s', target: 0 },
+      ],
+      exec: 'sitterFlow',
+      startTime: '10s', // Sitters still wait a bit for jobs to accumulate
     },
   },
-};
+  thresholds: {
+    // We expect the system to be slower under stress (Allow up to 3s)
+    'http_req_duration': ['p(95)<3000'], 
+    // We want to know if errors spike (allow up to 5% failure rate)
+    'http_req_failed': ['rate<0.05'], 
+  },
+}
