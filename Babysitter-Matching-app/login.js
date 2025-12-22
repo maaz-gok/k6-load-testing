@@ -55,7 +55,6 @@ export function login(role) {
 
   // 5. Extract Token
   const body = safeJson(res.body);
-  // Based on your JSON structure: { data: { token: "..." } }
   const token = body.data?.token;
 
   if (token) {
