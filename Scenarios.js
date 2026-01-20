@@ -99,61 +99,66 @@
 //     },
 //   },
 // };
+export const options = {
+  scenarios: {
+    bookingLoadTest: {
+      executor: "ramping-vus",
+      startVUs: 1,
+      stages: [
+        { duration: "1m", target: 10 },
+        { duration: "2m", target: 20 },
+        { duration: "1m", target: 50 },
+        { duration: "1m", target: 0 },
+      ],
+      exec: "default",
+      startTime: "0s",
+    },
+  },
+
+  thresholds: {
+    // 95% of requests should complete within 1 second
+    http_req_duration: ["p(95)<1000"],
+
+    // Less than 5% of requests should fail
+    http_req_failed: ["rate<0.05"],
+  },
+};
+
+
+
 // export const options = {
 //   scenarios: {
+//     // 1. PARENTS: Ramp up to 50 concurrent users
 //     parents: {
-//       executor: 'constant-vus',
-//       vus: 5,             // 5 Parents
-//       duration: '1m',     
-//       exec: 'parentFlow', 
-//       startTime: '0s',    
+//       executor: 'ramping-vus',
+//       startVUs: 0,
+//       stages: [
+//         { duration: '30s', target: 5 },  // Warm up
+//         { duration: '1m', target: 20 },  // Ramp up
+//         { duration: '2m', target: 50 },  // 🔴 STRESS PEAK
+//         { duration: '30s', target: 0 },  // Cool down
+//       ],
+//       exec: 'parentFlow',
+//       startTime: '0s', 
 //     },
+//     // 2. SITTERS: Ramp up to 50 concurrent users (Wait 10s to start)
 //     sitters: {
-//       executor: 'constant-vus',
-//       vus: 5,             // 5 Sitters
-//       duration: '50s',    
-//       exec: 'sitterFlow', 
-//       startTime: '10s',   
+//       executor: 'ramping-vus',
+//       startVUs: 0,
+//       stages: [
+//         { duration: '30s', target: 5 },
+//         { duration: '1m', target: 20 },
+//         { duration: '2m', target: 50 },  // 🔴 STRESS PEAK
+//         { duration: '30s', target: 0 },
+//       ],
+//       exec: 'sitterFlow',
+//       startTime: '10s', // Sitters still wait a bit for jobs to accumulate
 //     },
 //   },
 //   thresholds: {
-//     'http_req_duration': ['p(95)<2000'], 
-//     'errors': ['count<10'],
+//     // We expect the system to be slower under stress (Allow up to 3s)
+//     'http_req_duration': ['p(95)<3000'], 
+//     // We want to know if errors spike (allow up to 5% failure rate)
+//     'http_req_failed': ['rate<0.05'], 
 //   },
 // }
-export const options = {
-  scenarios: {
-    // 1. PARENTS: Ramp up to 50 concurrent users
-    parents: {
-      executor: 'ramping-vus',
-      startVUs: 0,
-      stages: [
-        { duration: '30s', target: 5 },  // Warm up
-        { duration: '1m', target: 20 },  // Ramp up
-        { duration: '2m', target: 50 },  // 🔴 STRESS PEAK
-        { duration: '30s', target: 0 },  // Cool down
-      ],
-      exec: 'parentFlow',
-      startTime: '0s', 
-    },
-    // 2. SITTERS: Ramp up to 50 concurrent users (Wait 10s to start)
-    sitters: {
-      executor: 'ramping-vus',
-      startVUs: 0,
-      stages: [
-        { duration: '30s', target: 5 },
-        { duration: '1m', target: 20 },
-        { duration: '2m', target: 50 },  // 🔴 STRESS PEAK
-        { duration: '30s', target: 0 },
-      ],
-      exec: 'sitterFlow',
-      startTime: '10s', // Sitters still wait a bit for jobs to accumulate
-    },
-  },
-  thresholds: {
-    // We expect the system to be slower under stress (Allow up to 3s)
-    'http_req_duration': ['p(95)<3000'], 
-    // We want to know if errors spike (allow up to 5% failure rate)
-    'http_req_failed': ['rate<0.05'], 
-  },
-}
