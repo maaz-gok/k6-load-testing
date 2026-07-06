@@ -99,31 +99,50 @@
 //     },
 //   },
 // };
-export const options = {
-  scenarios: {
-    bookingLoadTest: {
-      executor: "ramping-vus",
-      startVUs: 1,
-      stages: [
-        { duration: "1m", target: 10 },
-        { duration: "2m", target: 20 },
-        { duration: "1m", target: 50 },
-        { duration: "1m", target: 0 },
-      ],
-      exec: "default",
-      startTime: "0s",
-    },
-  },
+// export const options = {
+//   scenarios: {
+//     bookingLoadTest: {
+//       executor: "ramping-vus",
+//       startVUs: 1,
+//       stages: [
+//         { duration: "1m", target: 10 },
+//         { duration: "2m", target: 20 },
+//         { duration: "1m", target: 50 },
+//         { duration: "1m", target: 0 },
+//       ],
+//       exec: "default",
+//       startTime: "0s",
+//     },
+//   },
 
-  thresholds: {
-    // 95% of requests should complete within 1 second
-    http_req_duration: ["p(95)<1000"],
+//   thresholds: {
+//     // 95% of requests should complete within 1 second
+//     http_req_duration: ["p(95)<1000"],
 
-    // Less than 5% of requests should fail
-    http_req_failed: ["rate<0.05"],
-  },
-};
+//     // Less than 5% of requests should fail
+//     http_req_failed: ["rate<0.05"],
+//   },
+// };
 
+// export const signupOptions = {
+//   scenarios: {
+//     signupLoadTest: {
+//       executor: "ramping-vus",
+//       startVUs: 1,
+//       stages: [
+//         { duration: "30s", target: 3 }, // Ramp up to 3 VUs
+//         { duration: "2m", target: 5 },  // Push to 5 VUs and hold
+//         { duration: "30s", target: 0 }, // Ramp down
+//       ],
+//       exec: "default",
+//       startTime: "0s",
+//     },
+//   },
+//   thresholds: {
+//     http_req_duration: ["p(95)<1000"],
+//     http_req_failed: ["rate<0.05"],
+//   },
+// };
 
 
 // export const options = {
@@ -162,3 +181,23 @@ export const options = {
 //     'http_req_failed': ['rate<0.05'], 
 //   },
 // }
+
+export const inventoryOptions = {
+  scenarios: {
+    inventoryLoadTest: {
+      executor: "ramping-vus",
+      startVUs: 1,
+      stages: [
+        { duration: "20s", target: 5 }, // Ramp up
+        { duration: "2m", target: 50 }, // Stress
+        { duration: "20s", target: 0 }, // Ramp down
+      ],
+      exec: "default",
+      startTime: "0s",
+    },
+  },
+  thresholds: {
+    http_req_duration: ["p(95)<2000"],
+    http_req_failed: ["rate<0.05"],
+  },
+};
