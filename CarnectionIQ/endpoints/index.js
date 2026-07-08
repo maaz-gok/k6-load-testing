@@ -9,4 +9,5 @@ export const ENDPOINTS = {
     SUBSCRIPTION_CHECKOUT: `${BASE_URL}/stripe/subscriptions/checkout`,
     STRIPE_WEBHOOK: `${BASE_URL}/webhooks/stripe`,
     ADD_VEHICLE: `${BASE_URL}/dealer/inventory/vehicle`,
+    CUSTOMER_LISTINGS: `${BASE_URL}/listings`,
 };
