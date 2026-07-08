@@ -3,7 +3,7 @@ import { check, sleep } from "k6";
 import { ENDPOINTS } from "./endpoints/index.js";
 export const options = {
     vus: 1,
-    iterations: 10,
+    iterations: 5,
 };
 
 export function setup() {
@@ -14,9 +14,9 @@ export function setup() {
 
     const headers = { "Content-Type": "application/json" };
     const res = http.post(ENDPOINTS.LOGIN, loginPayload, { headers });
-    
+
     check(res, { "Login Successful": (r) => r.status === 200 || r.status === 201 });
-    
+
     let token = res.json("token") || res.json("access_token") || res.json("data.token");
     if (!token) {
         console.error("Login failed or token not found!", res.body);
@@ -41,7 +41,7 @@ export default function (data) {
         { make: "Toyota", model: "Yaris", image: "dealer-inventory/cdbc3c92-463c-49da-be2a-61f045c74d84.png" },
         { make: "Hyundai", model: "Sonata", image: "dealer-inventory/9ad8ba89-eaaf-4c86-8ee9-c48221d6bae5.png" },
     ];
-    
+
     const randCar = cars[Math.floor(Math.random() * cars.length)];
     // Make VIN completely unique to avoid 409 collisions (Max 17 chars)
     const timeStr = Date.now().toString().slice(-8); // Last 8 digits of timestamp
@@ -51,7 +51,6 @@ export default function (data) {
     const vehiclePayload = JSON.stringify({
         thumbnail: randCar.image,
         photos: [
-            randCar.image,
             randCar.image
         ],
         description: `This is a great ${randCar.make} ${randCar.model} for sale!`,
@@ -65,12 +64,12 @@ export default function (data) {
         mileage: `${Math.floor(5000 + Math.random() * 100000)}`,
         vin: randomVIN,
         titleStatus: "clean",
-        soldStatus: "un_sold", 
+        soldStatus: "un_sold",
         activeStatus: "active"
     });
 
     let res = http.post(ENDPOINTS.CUSTOMER_LISTINGS, vehiclePayload, { headers });
-    
+
     let success = check(res, {
         "Listing Added": (r) => r.status === 200 || r.status === 201
     });
