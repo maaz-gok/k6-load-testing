@@ -1,13 +1,15 @@
 import http from "k6/http";
 import { check, sleep } from "k6";
 import { ENDPOINTS } from "./endpoints/index.js";
-import { inventoryOptions as options } from "../Scenarios.js";
-
-export { options };
+// import { inventoryOptions as options } from "../Scenarios.js";
+export const options = {
+    vus: 1,
+    iterations: 5
+};
 
 export function setup() {
     const loginPayload = JSON.stringify({
-        email: "maaz+load@geeksofkolachi.com",
+        email: "maaz+dealer@geeksofkolachi.com",
         password: "Test123!",
     });
 
@@ -47,10 +49,12 @@ export default function (data) {
     const randStr = Math.floor(10000 + Math.random() * 90000).toString(); // 5 random digits
     const randomVIN = `VIN${timeStr}${randStr}`; // Total 16 chars
 
+    const trims = ["LE", "SE", "XLE", "Limited", "Touring", "Sport", "Premium"];
+    const randomTrim = trims[Math.floor(Math.random() * trims.length)];
+
     const vehiclePayload = JSON.stringify({
         thumbnail: randCar.image,
         photos: [
-            randCar.image,
             randCar.image
         ],
         description: `This is a great ${randCar.make} ${randCar.model} for sale!`,
@@ -58,7 +62,7 @@ export default function (data) {
         vehicleType: "sedan",
         make: randCar.make,
         model: randCar.model,
-        trim: "LE",
+        trim: randomTrim,
         color: "Black",
         price: `${Math.floor(10000 + Math.random() * 40000)}`,
         mileage: `${Math.floor(5000 + Math.random() * 100000)}`,
