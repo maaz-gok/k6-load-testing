@@ -7,6 +7,18 @@
         {
             "folderPath": "ExampleRun",
             "color": "#4ECDC4"
+        },
+        {
+            "folderPath": "CarnectionIQ",
+            "color": "#FF9F1C"
+        },
+        {
+            "folderPath": "SixProperty",
+            "color": "#2EC4B6"
+        },
+        {
+            "folderPath": "Results",
+            "color": "#E71D36"
         }
     ]
 }

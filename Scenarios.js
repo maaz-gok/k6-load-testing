@@ -201,3 +201,22 @@ export const inventoryOptions = {
     http_req_failed: ["rate<0.05"],
   },
 };
+export const registerOptions = {
+  scenarios: {
+    sixPropertyRegister: {
+      executor: "ramping-vus",
+      startVUs: 1,
+      stages: [
+        { duration: "10s", target: 10 }, // Ramp up to 10 VUs
+        { duration: "30s", target: 20 }, // Stay at 20 VUs
+        { duration: "10s", target: 0 }, // Ramp down to 0 VUs
+      ],
+      exec: "default",
+      startTime: "0s",
+    },
+  },
+  thresholds: {
+    http_req_duration: ["p(95)<2000"],
+    http_req_failed: ["rate<0.05"],
+  },
+};
