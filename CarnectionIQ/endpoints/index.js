@@ -10,4 +10,5 @@ export const ENDPOINTS = {
     STRIPE_WEBHOOK: `${BASE_URL}/webhooks/stripe`,
     ADD_VEHICLE: `${BASE_URL}/dealer/inventory/vehicle`,
     CUSTOMER_LISTINGS: `${BASE_URL}/listings`,
+    CUSTOMER_MATCHES_SEARCH: `${BASE_URL}/customer/matches/search`,
 };
